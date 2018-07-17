@@ -6,6 +6,17 @@
         <el-form-item label="城市" prop="areaId" style="width:150px;" :rules="[{ required: true, message: '该字段不能为空'}]">
           <el-cascader size="small" :options="cityList" v-model="options" :show-all-levels="false" @change="cityChange"></el-cascader>
         </el-form-item>
+        <el-form-item label="类型" prop="type" style="width:150px;" :rules="[{ required: true, message: '该字段不能为空'}]">
+          <el-select v-model="model.type" size="small">
+            <el-option label="首页" :value="1"></el-option>
+            <el-option label="资讯" :value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="model.type == 2" label="栏目" prop="categoryId" style="width:150px;">
+          <el-select v-model="model.categoryId" size="small">
+            <el-option :label="item.name" :value="item.id" v-for="(item, index) in categoryList" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="排序" prop="seqNum" style="width:150px;" :rules="[{ required: true, message: '该字段不能为空'}]">
           <el-input-number size="small" :min="1" v-model="model.seqNum"></el-input-number>
         </el-form-item>
@@ -43,6 +54,7 @@ export default {
   props: {
     visible: Boolean,
     cityList: Array,
+    categoryList: Array,
     id: {
       type: String,
       default: ""
@@ -55,12 +67,14 @@ export default {
     return {
       digImgWrap: false,
       model: {
+        type: 1,
         name: "",
         href: "",
         url: "",
         seqNum: "",
         note: "",
-        id: ""
+        id: "",
+        categoryId: ""
       },
       options: [],
       loading: false,
@@ -68,6 +82,9 @@ export default {
     };
   },
   watch: {
+    'model.type'() {
+      if(this.model.type == 1) this.model.categoryId = '';
+    },
     visible(val) {
       if (val && this.id != "") {
         this.dataLoading = true;

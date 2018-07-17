@@ -4,10 +4,21 @@
       <search-wrap>
         <el-form :inline="true">
           <el-form-item label="名称">
-            <el-input size="small" v-model="searchData.name"></el-input>
+            <el-input size="small" v-model="searchData.name" placeholder="请输入名称"></el-input>
           </el-form-item>
           <el-form-item label="城市">
             <el-cascader size="small" :options="areaList" :show-all-levels="false" @change="cityChange"></el-cascader>
+          </el-form-item>
+          <el-form-item label="类型">
+            <el-select v-model="searchData.type" size="small">
+              <el-option label="首页" :value="1"></el-option>
+              <el-option label="资讯" :value="2"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item v-if="searchData.type == 2" label="栏目">
+            <el-select v-model="searchData.categoryId" size="small">
+              <el-option :label="item.name" :value="item.id" v-for="(item, index) in categoryList" :key="index"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="small" @click="search()">查询</el-button>
@@ -23,7 +34,7 @@
     </div>   
     <qc-table ref="table" :table-list="showData" :search="searchData" url="api/admin/v1/appAttachment/page">
  </qc-table>
-  <dig-form :visible='digFormWrap' :id="updateId" :cityList="areaList" :categoryParent="categoryParent" @close="digClose"></dig-form>
+  <dig-form :visible='digFormWrap' :id="updateId" :cityList="areaList" :categoryList="categoryList"  :categoryParent="categoryParent" @close="digClose"></dig-form>
   </div>
 </template>
 
@@ -45,6 +56,8 @@ export default {
         abc: [],
         areaId: "",
         name: "",
+        type: 1,
+        categoryId: "",
       },
       showData: [
         { prop: "seqNum", label: "排序", template: 'seqNum' },
@@ -58,13 +71,27 @@ export default {
       ],
       categoryType: true,
       categoryParent: {},
-      areaList: []
+      areaList: [],
+      categoryList: [],
     };
   },
   created() {
     this.getAreaList();
+    this.apiGetList();
+  },
+  watch: {
+    'searchData.type'() {
+      if(this.searchData.type == 1) this.searchData.categoryId = "";
+    }
   },
   methods: {
+    // 分类列表
+    apiGetList() {
+      api.listCategory()
+      .then(res => {
+        this.categoryList = res.data.data
+      })
+    },
     // 获取国家包含城市
     getAreaList(){
       api.getAreaList()

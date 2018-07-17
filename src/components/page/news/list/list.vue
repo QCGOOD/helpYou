@@ -31,7 +31,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="small" @click="search()">查询</el-button>
-            <el-button type="primary" size="small" @click="zhuanhuan()">转换</el-button>
+            <!-- <el-button type="primary" size="small" @click="zhuanhuan()">转换</el-button> -->
           </el-form-item>
         </el-form>
       </search-wrap>

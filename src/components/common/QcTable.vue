@@ -325,7 +325,7 @@ export default {
         .catch(err => {
           this.loading = !true;
           console.log("表格接口调用失败", err);
-          this.$router.replace("/login");
+          // this.$router.replace("/login");
         });
     },
     // 查询表格数据

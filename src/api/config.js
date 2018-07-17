@@ -11,10 +11,10 @@ axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? Vue.base.baseHo
 
 //返回状态判断(添加响应拦截器)
 axios.interceptors.response.use((res) => {
+  console.log('返回状态判断')
   // debugger
   if (res.data.code == 20000 || res.data.code == 50104) {
     return res;
-    // console.log(res.data)
   } else {
     if (res.data.code === 50103) {
       Vue.$router.replace("/login");
@@ -24,8 +24,10 @@ axios.interceptors.response.use((res) => {
     return Promise.reject(res);
   }
 }, function axiosRetryInterceptor (err) {
-  // Message.error('请求超时');
+  console.log('axiosRetryInterceptor === ', err)
+  Message.error('请求错误');
   // Vue.$router.replace("/login");
+  return Promise.reject(err);
 })
 export default {
   postImg: function(url, params) {

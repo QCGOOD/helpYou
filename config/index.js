@@ -10,19 +10,10 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/api': {
-      //   // target: 'http://192.168.1.32:8180/athena-app/',
-      //   target: 'http://192.168.1.32:8180',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/api': ''
-      //   }
-      // },
+
       '/helpyou': {
-        // target: 'http://192.168.1.70:8080/', 
-        // target: 'http://192.168.1.32:8180/',
-        target: 'http://192.168.1.18:8011/',
-        // target: 'http://x.wego168.com/',
+        // target: 'http://192.168.1.18:8011/',
+        target: 'http://abn.wego168.com/',
         changeOrigin: true,
         pathRewrite: {
           '/helpyou': 'helpyou'
