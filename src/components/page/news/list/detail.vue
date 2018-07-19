@@ -177,7 +177,7 @@ export default {
         this.model = res.data.data;
         this.cityDefault.push(this.model.areaId.id)
         if (this.model.imgUrl) {
-          let imgList = this.model.imgUrl.split("_");
+          let imgList = this.model.imgUrl.split(",");
           imgList.map(item => {
             this.imgList.push({ url: item });
           });
@@ -267,7 +267,7 @@ export default {
     getImgList() {
       let imgUrl = "";
       this.imgList.map((item, i) => {
-        imgUrl += item.url + "_";
+        imgUrl += item.url + ",";
       });
       this.model.imgUrl = imgUrl.substr(0, imgUrl.length - 1);
     },

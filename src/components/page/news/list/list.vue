@@ -3,9 +3,6 @@
     <div ref="search">
       <search-wrap>
         <el-form :inline="true" class="demo-form-inline" size="small">
-          <el-form-item label="名称">
-            <el-input v-model="searchData.name"></el-input>
-          </el-form-item>
           <el-form-item label="栏目">
             <el-select v-model="searchData.categoryId">
               <el-option label="全部" value=""></el-option>
@@ -31,7 +28,6 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="small" @click="search()">查询</el-button>
-            <!-- <el-button type="primary" size="small" @click="zhuanhuan()">转换</el-button> -->
           </el-form-item>
         </el-form>
       </search-wrap>
@@ -44,7 +40,6 @@
         <el-button type="primary" size="mini" :disabled="tableList.id == null || !tableList.isAudit"  @click="confirm('是否下架该数据？', revokeNews)">下架</el-button>
         <el-button type="primary" size="mini" :disabled="tableList.id == null || tableList.imgUrl == ''" @click="openImgListDig">查看图片</el-button>
         
-        <!-- <el-button type="primary" size="mini" :disabled="tableList.id == null || tableList.isSell == false"  @click="updateOnsale(false)">下架</el-button> -->
       </button-wrap>
     </div>
     <qc-table ref="table" :height="domHeight" :table-list="showData" :search="searchData" url="api/admin/v1/information/page">
@@ -80,12 +75,12 @@ export default {
       searchData: {
         categoryId: null,
         areaId: "",
-        listType: "",
+        listType: 1,
         type: ""
       },
       showData: [
         { template: 'index' },
-        // { prop: "headImage", label: "头像", template: 'img', headImage: true, isPrefix: true },
+        { prop: "headImage", label: "头像", template: 'img', headImage: true, isPrefix: true },
         { prop: "username", label: "昵称" },
         { prop: "appellation", label: "称呼" },
         { prop: "phone", label: "电话" },

@@ -6,7 +6,9 @@
           <el-input size="small" v-model="model.name"></el-input>
         </el-form-item>
         <el-form-item v-if="type === 3" label="时区" prop="timeZone" :rules="[{ required: true, message: '该字段不能为空'}]">
-          <el-input size="small" v-model="model.timeZone"></el-input>
+          <el-select v-model="model.timeZone" size="small">
+            <el-option v-for="(item, index) in timeZoneList" :key="index" :label="item.label" :value="item.value"></el-option>
+          </el-select>
         </el-form-item>
     </el-form>
   </div>
@@ -41,8 +43,35 @@ export default {
         type: 1,
         name: '',
         parentId: '',
-        timeZone: 'None'
+        timeZone: 'GMT+8'
       },
+      timeZoneList: [
+        {label: '零时区', value: 'GMT'},
+        {label: '东一区', value: 'GMT+1'},
+        {label: '东二区', value: 'GMT+2'},
+        {label: '东三区', value: 'GMT+3'},
+        {label: '东四区', value: 'GMT+4'},
+        {label: '东五区', value: 'GMT+5'},
+        {label: '东六区', value: 'GMT+6'},
+        {label: '东七区', value: 'GMT+7'},
+        {label: '东八区', value: 'GMT+8'},
+        {label: '东九区', value: 'GMT+9'},
+        {label: '东十区', value: 'GMT+10'},
+        {label: '东十一区', value: 'GMT+11'},
+        {label: '东十二区', value: 'GMT+12'},
+        {label: '西一区', value: 'GMT-1'},
+        {label: '西二区', value: 'GMT-2'},
+        {label: '西三区', value: 'GMT-3'},
+        {label: '西四区', value: 'GMT-4'},
+        {label: '西五区', value: 'GMT-5'},
+        {label: '西六区', value: 'GMT-6'},
+        {label: '西七区', value: 'GMT-7'},
+        {label: '西八区', value: 'GMT-8'},
+        {label: '西九区', value: 'GMT-9'},
+        {label: '西十区', value: 'GMT-10'},
+        {label: '西十一区', value: 'GMT-11'},
+        {label: '西十二区', value: 'GMT-12'},
+      ],
       options: [],
       loading: false,
       dataLoading: false
